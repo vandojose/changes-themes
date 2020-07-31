@@ -20,13 +20,17 @@ export const useDarkMode = () => {
 
   useEffect(() => {
     const localTheme = window.localStorage.getItem("theme");
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: darkTheme)").matches &&
-    !localTheme
-      ? setMode("darkTheme")
-      : localTheme
-      ? setTheme(localTheme)
-      : setMode("defaultTheme");
+
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: defaultTheme)").matches &&
+      !localTheme
+    ) {
+      setMode("defaultTheme");
+    } else {
+      setTheme(localTheme);
+    }
+
     setComponentMounted(true);
   }, []);
 
